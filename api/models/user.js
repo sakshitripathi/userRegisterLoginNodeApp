@@ -4,9 +4,17 @@ var Schema = mongoose.Schema;
 
 
 var UserSchema = new Schema({
-    userName: {
+    fullname: {
         type: String,
-        required: 'Kindly enter the username'
+        required: 'Kindly enter your fullname'
+    },
+    mobileno:{
+        type:Number,
+        required:'kindly enter your mobileno'
+    },
+    email:{
+        type:String,
+        required:'kindly enter your email'
     },
     password: {
         type: String,
