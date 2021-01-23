@@ -9,7 +9,8 @@ module.exports = function (app) {
     app.route('/loginUser')
         .post(controllers.loginUser);
 
-    
+    app.route('/users')
+        .get(controllers.users);
 
 
     app.get('/', function (request, response){

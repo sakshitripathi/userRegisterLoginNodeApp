@@ -3,6 +3,7 @@
 
 var mongoose = require('mongoose'),
     User = mongoose.model('User');
+const { query } = require('express');
 var jwt = require('jsonwebtoken');
 /*
 exports.list_all_tasks = function (req, res) {
@@ -69,4 +70,36 @@ exports.loginUser = function (req, res) {
             res.send("user not found");
           }
        })
+
 };
+
+exports.users= function (req, res) {
+    var searchKeys=req.body.searchKeys;
+    var searchValues=req.body.searchValues;
+    var selectionKeys=req.body.selectionKeys;
+    var input_skip=req.body.skip;
+    var input_limit=req.body.limit;
+  var query={};
+  var i;
+  for(i=0;i<searchKeys.length;i++)
+  {
+      query[searchKeys[i]]={
+        $regex:searchValues[i]
+    }
+  } console.log(query);
+  var fields=selectionKeys.join(' ');
+    User.find(query,fields,{ skip: input_skip, limit: input_limit},function(err,response){
+
+        if(err){
+
+            console.log(err);
+        }
+        else{
+            
+            console.log("result",response);
+            res.send(response);
+            
+        }
+    });
+}
+    
