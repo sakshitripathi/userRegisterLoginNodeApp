@@ -4,4 +4,6 @@ module.exports = function (app) {
 
   // todoList Routes
   app.route("/createUser").post(controllers.createUser);
+  app.route("/loginUser").post(controllers.loginUser);
+  
 };
