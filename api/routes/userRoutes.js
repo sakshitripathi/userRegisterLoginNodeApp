@@ -1,6 +1,8 @@
 'use strict';
 module.exports = function (app) {
     var controllers = require('../controllers/userController');
+    
+  var Login = require("../controllers/loginController")
 
     // todoList Routes
     app.route('/createUser')
@@ -11,7 +13,8 @@ module.exports = function (app) {
 
     app.route('/users')
         .get(controllers.users);
-
+    
+  app.route("/loginUser").post(Login.loginUser);
 
     app.get('/', function (request, response){
          response.render('login.ejs');
