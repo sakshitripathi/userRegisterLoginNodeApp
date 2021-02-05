@@ -6,6 +6,7 @@ var UserSchema = new Schema({
   username: {
     type: String,
     required: "Kindly enter your username",
+    unique:true
   },
 
   email: {
