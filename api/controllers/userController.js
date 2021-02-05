@@ -1,5 +1,6 @@
 'use strict';
 
+<<<<<<< HEAD
 
 var mongoose = require('mongoose'),
     User = mongoose.model('User');
@@ -25,6 +26,34 @@ exports.createUser = async function (req, res) {
                   var userparams = req.body;
           const { username, email, password: plainTextPassword } = req.body        
           console.log(userparams.username);
+=======
+
+var mongoose = require('mongoose'),
+    User = mongoose.model('User');
+const { query } = require('express');
+var jwt = require('jsonwebtoken');
+
+
+const bcrypt = require('bcryptjs')
+const JWT_SECRET = 'sdjkfh8923yhjdksbfma@#*(&@*!^#&@bhjb2qiuhesdbhjdsfg839ujkdhfjk'
+
+
+
+/*
+exports.list_all_tasks = function (req, res) {
+    Task.find({}, function (err, task) {
+        if (err)
+            res.send(err);
+        res.json(task);
+    });
+};
+*/
+
+exports.createUser = function (req, res) {
+  try{
+                  var userparams = req.body;
+                  console.log(userparams.username);
+>>>>>>> 44adbf661738fc1272bd3711a5de79b5a10899bf
                   if (userparams.username == "") {
                     res.send("username cannot be empty");
                     return;
@@ -38,6 +67,7 @@ exports.createUser = async function (req, res) {
                     return;
                   }
                   
+<<<<<<< HEAD
                   const password = await bcrypt.hash(plainTextPassword, 10)
 
 
@@ -49,6 +79,18 @@ exports.createUser = async function (req, res) {
                 await new_user.save();
                 console.log('User created successfully: ',new_user)
         }
+=======
+                //changed 
+                userparams.password=await bcrypt.hash(userparams.password,10)
+
+
+                  var new_user = new User(req.body);
+                  console.log(new_user);
+                  new_user.save(function (err, user) {
+                    
+                    res.send("user created successfully");
+                  });}
+>>>>>>> 44adbf661738fc1272bd3711a5de79b5a10899bf
   //changed
   catch(error){
     if(error.code === 11000){
@@ -56,6 +98,7 @@ exports.createUser = async function (req, res) {
     }
     throw error;
   }
+<<<<<<< HEAD
   res.json({status:"ok"})
 };
 
@@ -79,10 +122,32 @@ exports.loginUser = async function (req, res)
                 },
                 JWT_SECRET
               )
+=======
+};
+
+exports.loginUser = function (req, res) {
+  const { username, password } = req.body
+	const user = await User.findOne({ username }).lean()
+
+	if (!user) {
+		return res.json({ status: 'error', error: 'Invalid username/password' })
+	}
+
+	if (await bcrypt.compare(password, user.password)) {
+
+		const token = jwt.sign(
+			{
+				id: user._id,
+				username: user.username
+			},
+			JWT_SECRET
+		)
+>>>>>>> 44adbf661738fc1272bd3711a5de79b5a10899bf
 
 		return res.json({ status: 'ok', data: token })
 	}
 
+<<<<<<< HEAD
 	res.json({ status: 'error', error: 'Invalid username/password' })
 };
   
@@ -111,6 +176,11 @@ exports.loginUser = async function (req, res)
    // res.json({ status: 'error', error: 'Invalid username/password' })
 
 
+=======
+    res.json({ status: 'error', error: 'Invalid username/password' })
+
+};
+>>>>>>> 44adbf661738fc1272bd3711a5de79b5a10899bf
 
 exports.users= function (req, res) {
   var searchKeys=req.body.searchKeys;
@@ -128,9 +198,15 @@ for(i=0;i<searchKeys.length;i++)
 } console.log(query);
 var fields=selectionKeys.join(' ');
   User.find(query,fields,{ skip: input_skip, limit: input_limit},function(err,response){
+<<<<<<< HEAD
 
       if(err){
 
+=======
+
+      if(err){
+
+>>>>>>> 44adbf661738fc1272bd3711a5de79b5a10899bf
           console.log(err);
       }
       else{
