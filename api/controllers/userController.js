@@ -42,8 +42,14 @@ exports.createUser = async function (req, res) {
         }
   //changed
   catch(error){
+    console.log(error);
     if(error.code === 11000){
+      if (error.keyPattern['username'] == 1) {
+        return res.json({status:"error",error:'username already in Use'})
+        }
+      if (error.keyPattern['email'] == 1) {
       return res.json({status:"error",error:'Email Id already in Use'})
+      }
     }
     throw error;
   }
