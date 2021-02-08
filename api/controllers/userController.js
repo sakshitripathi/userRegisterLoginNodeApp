@@ -40,14 +40,13 @@ exports.createUser = async function (req, res) {
     });
     await new_user.save();
     console.log("User created successfully: ", new_user);
-  }   catch(error){
-  
-    if(error.code === 11000){
-      if (error.keyPattern['username'] == 1) {
-        return res.json({status:"error",error:'username already in Use'})
-        }
-      if (error.keyPattern['email'] == 1) {
-      return res.json({status:"error",error:'Email Id already in Use'})
+  } catch (error) {
+    if (error.code === 11000) {
+      if (error.keyPattern["username"] == 1) {
+        return res.json({ status: "error", error: "Username already in Use" });
+      }
+      if (error.keyPattern["email"] == 1) {
+        return res.json({ status: "error", error: "Email Id already in Use" });
       }
     }
     throw error;
@@ -78,7 +77,7 @@ exports.loginUser = async function (req, res) {
       status: "Success",
       accesstoken: token,
       username: user.username,
-      email: user.email
+      email: user.email,
     };
     return res.send(JSON.stringify(userDetails));
 
